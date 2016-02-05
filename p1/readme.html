@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>103 Project 1</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">103 Project 1</h1>
+</div>
+<h2 id="due-tuesday-february-9th-1159pm"><em>Due:</em> Tuesday, February 9th @ 11:59pm</h2>
+<h2 id="synopsis">Synopsis</h2>
+<p>This project is very simple modification of the standard “hello world” program, which gathers user input to construct the response. The main point is for you to spend a little time getting comfortable with the tools, making sure you know how to do the basics of compiling and linking, and starting to get you a tiny bit familiar with C++.</p>
+<h2 id="important-notes-on-grading">Important Notes on Grading</h2>
+<ul>
+<li>Code that does not compile will receive a 0.</li>
+<li>Files that are not properly named will receive a 0. (See the section below on the <a href="#submission-procedure">submission procedure</a>.)</li>
+</ul>
+<h2 id="details">Details</h2>
+<p>Your assignment is just to modify the simple “hello world” program so that it collects some information from the user, and then echoes a more personal greeting, modeled after a famous line from <a href="https://en.wikipedia.org/wiki/The_Princess_Bride_(film)">The Princess Bride</a>. Here’s what a transcript of your program should look like:</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">Enter your name:
+Inigo
+Enter a relative:
+father
+Hello.  My name is Inigo. You killed my father. Prepare to die.</code></pre></div>
+<p>Your program asks for the name, and relative, stores the responses, and prints the greeting line at the end. That’s it. Pretty easy, right? Hopefully so. <em>Note:</em> if you want to collect names / relatives with whitespace, e.g., “Inigo Montoya”, or “great grandmother’s second cousin”, then you’ll want to use <code>getline(cin,stringname)</code> rather than <code>cin &gt;&gt; stringname</code>, but it is not required to do so.</p>
+<p>You may want to start with a template that looks something like this:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="ot">#include &lt;iostream&gt;</span>
+<span class="kw">using</span> std::cin;
+<span class="kw">using</span> std::cout;
+<span class="ot">#include &lt;string&gt;</span>
+<span class="kw">using</span> std::string;
+
+<span class="dt">int</span> main()
+{
+
+}</code></pre></td></tr></table></div>
+<p>Make sure you know what each of the lines does (more or less). The <code>&lt;string&gt;</code> library provides you with the <code>string</code> class, surprisingly enough. Use a variable of type <code>string</code> to store the user’s name. Recall that the <code>&lt;iostream&gt;</code> library provides you a way to access <a href="https://en.wikipedia.org/wiki/Standard_streams">standard input and output</a>.</p>
+<p>It might be a good idea to follow along with the tutorial on <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103F15/commandline.html">building from the command line</a> as you’re doing this assignment.</p>
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Turn your assignment in <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103F15/upload.html">here</a>. A few <strong>important notes:</strong></p>
+<ul>
+<li><em>Save the receipt.</em> You will need this to get your homework score back later! The easiest thing to do is just save the page (Ctrl-S in firefox).</li>
+<li><em>Don’t change the filename.</em> Just edit and submit the file from the repository (in this case <code>hello.cpp</code>). If you turn a file with a different name, it will not be graded.</li>
+<li><em>Respect the deadline.</em> Turning in homework past the deadline will be noticed, and may lead to a zero.</li>
+</ul>
+<h2 id="for-next-time">For Next Time…</h2>
+<p>Since you’re reading this, you have probably managed to clone the repository:</p>
+<pre><code>$ git clone https://wes_ccny@bitbucket.org/wes_ccny/csc103-projects.git</code></pre>
+<p>Congratulations :D However, in the future, <strong>don’t run clone again</strong>. This is only for the first time. To get the future project skeletons, you only need to run:</p>
+<pre><code>$ git commit -a -m &quot;message goes here...&quot;
+$ git pull --no-edit</code></pre>
+<p>The first command is to commit your changes (which you should have been doing all along, of course…). The second will bring in the new stuff for the next project. Note that you have to do this from inside the <code>csc103-projects/</code> directory. Note also that if you leave out the <code>--no-edit</code> you can enter something other than the default merge message; however in our scenarios, this is not typically useful.</p>
+<!--  links  -->
+</body>
+</html>
