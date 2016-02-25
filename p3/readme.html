@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>103 Project 3: Wordcount++</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">103 Project 3: Wordcount++</h1>
+</div>
+<h2 id="due-friday-march-11th-1159pm"><em>Due:</em> Friday, March 11th @ 11:59pm</h2>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>In this project, you’ll re-implement the famous unix utility <code>wc</code> (“word count”), and make some minor enhancements as well. You can find some details on the original <code>wc</code> <a href="https://en.wikipedia.org/wiki/Wc_%28Unix%29">here</a>. What you’ll learn from doing this:</p>
+<ul>
+<li>More about basic C++ data structures like <code>&lt;string&gt;</code> and <code>&lt;set&gt;</code>.</li>
+<li>Functions and arguments.</li>
+<li>A bit more about the unix shell.</li>
+</ul>
+<h2 id="important-notes-on-grading">Important Notes on Grading</h2>
+<p>Unlike prior assignments, you’ll do this one collaboratively. Teams <strong>must be 3 – 4 people</strong>, and <strong>your teammates must be in the same recitation</strong>. Details:</p>
+<ul>
+<li>Everyone should sign up on <a href="https://bitbucket.org/">bitbucket</a>.</li>
+<li>Designate one member of your team to be the leader / repository owner. (They’ll set up the repository and grant access to the rest of the team.)</li>
+<li>Commits from the team members can be incorporated in one of two ways:
+<ol style="list-style-type: decimal">
+<li>Follow the instructions on <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">collaborating with git</a>. (Team leaders: don’t forget to give other members write access to the repository.)</li>
+<li>Use <a href="https://www.atlassian.com/git/tutorials/making-a-pull-request/example">bitbucket’s fork + pull request</a> features.</li>
+</ol>
+<strong>NOTE:</strong> Either way you do it, you should follow the guidelines given above about <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">avoiding merge conflicts</a>.</li>
+<li>Team leaders – please <em>edit</em> (or start, if it doesn’t exist) a piazza post containing the url of your repository, and a list of the team’s members. Please make different posts for each section (MM,MM2,MM3).</li>
+<li>Your projects will be graded based on whether or not they pass the automated tests, and whether or not each team member is contributing (as evidenced by the commit logs).</li>
+</ul>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<p>Again, we’ll try to adhere to the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">unix philosophy</a>: your program will read <a href="https://en.wikipedia.org/wiki/Standard_streams">standard input</a>, write <a href="https://en.wikipedia.org/wiki/Standard_streams">standard output</a>, and won’t print much of anything that isn’t necessary. Your program should more or less imitate <code>wc</code>, by printing out the number of lines, words, and characters. Additionally, it should print the number of <em>unique lines</em>, and the number of <em>unique words</em>. There are a few things that <code>wc</code> does which we will not worry about, however. In particular:</p>
+<ol style="list-style-type: decimal">
+<li>You don’t need to process arguments (like filenames); you can assume that all the input comes from standard input.</li>
+<li>You don’t need to format the output exactly the same way as <code>wc</code>: you can just separate each piece of the output by a tab <code>\t</code> character, or a few spaces (but <strong>don’t</strong> print anything that <strong>isn’t whitespace</strong> between the output fields).</li>
+</ol>
+<p>Here is some sample output from the program:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="st">&quot;this is a test&quot;</span> <span class="kw">|</span> <span class="kw">./wordcount</span>
+        <span class="kw">1</span>       4       15      1       4</code></pre></div>
+<p>The format of the output is</p>
+<pre><code>#lines  #words  #characters  #unique lines  #unique words</code></pre>
+<p>with each separated by whitespace (I used tabs). The first three numbers of the output here are essentially identical to that of <code>wc</code>.</p>
+<p>To send multiple lines to your program, the easiest way is to store your test in a file (let’s call it <code>testfile</code>) and then run <code>./wordcount &lt; testfile</code>. If <code>testfile</code> contains:</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">this is another example
+this example has multiple lines
+not all lines are unique
+not all lines are unique</code></pre></div>
+<p>Then,</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./wordcount</span> <span class="kw">&lt;</span> testfile
+        <span class="kw">4</span>       19      106     3       11</code></pre></div>
+<p>The <code>&lt;</code> operator simply takes a file and feeds its contents to the program as standard input. Other methods for running quick tests can be found in the <a href="#appendix-alternate-input-methods">appendix</a>.</p>
+<!---}}-->
+<!---{{ Testing-->
+<h2 id="testing-your-code">Testing Your Code</h2>
+<p>Just build your program, and then run <code>./test.sh</code>. It will tell you what went wrong, if anything. <em>Note:</em> this is not the ultimate verdict on whether or not your code works, but it does some reasonable tests. You can find the input files for the tests in the <code>testdata/</code> directory.</p>
+<!---}}-->
+<!---{{ Remarks-->
+<h2 id="remarks">Remarks</h2>
+<p><strong>Punctuation:</strong> you can assume that the input doesn’t contain any punctuation like “.,?” etc. Your program might consider “this” to be a different word than “this.” and that is okay. I won’t test that. You can change it if you want to.</p>
+<p><strong>Case-sensitivity:</strong> I will test your program with all lower-case input, so you don’t have to worry about case. Natural solutions to the problem will probably give a <em>case-sensitive</em> solution, so that “this” is not the same as “This”. Again, you can change this if you want, but it won’t matter to me.</p>
+<!---}}-->
+<!---{{ Hints-->
+<h2 id="hints">Hints</h2>
+<h3 id="general-approach">General approach</h3>
+<p>A good way to do this is to read one line at time from input into a string, say using <code>getline()</code>, and then break down each string to compute the words. As you are breaking the string into words, you can store them in a <a href="http://www.cplusplus.com/reference/stl/set/"><code>set</code> container</a>, which will automatically toss-out the duplicates. To break down the strings, I would recommend writing a function like this:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="dt">unsigned</span> <span class="dt">long</span> countWords(<span class="dt">const</span> string&amp; s, set&lt;string&gt;&amp; wl);</code></pre></td></tr></table></div>
+<p>The first parameter is to hold a line from the input, and the second parameter is <em>used as output</em> (note the <code>&amp;</code> for <em>call by reference</em>) to store the distinct words. I in fact left the above function prototype in the skeleton. You might want to use it. Also, you will again have to deal with reading an arbitrary amount of information from <code>cin</code>. I would use a loop something like this:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="kw">while</span>(getline(cin,line)) {
+    <span class="co">// process a line.</span>
+}
+<span class="co">// loop will end when input ends!</span></code></pre></td></tr></table></div>
+<p>And if you are using the <code>countWords</code> function above, then maybe declare a set like this, either globally, or in <code>main</code>:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp">set&lt;string&gt; wordList;
+<span class="co">/* now call countWords(line,wordList) repeatedly, for each line</span>
+<span class="co"> * of the file.  The countWords function should add words to wordList.</span>
+<span class="co"> * */</span></code></pre></td></tr></table></div>
+<h3 id="diagrammatic-approach-to-countwords">Diagrammatic Approach to <code>countWords</code></h3>
+<p>The following diagram might be helpful when thinking of how to process a line.</p>
+<div class="figure">
+<img src="fsm.svg" alt="Fig. 1: State Diagram" />
+<p class="caption">Fig. 1: State Diagram</p>
+</div>
+<p>Start in the node on the left hand side, and start reading characters, one by one. As you read a character, you will move along the arrows as prescribed by the diagram. Notice that what you want to do upon reading a character depends on what character you were reading previously – that is, it depends on which one of the nodes you are in! Then all that remains is to add the right actions for each case. E.g., if you were just reading non-whitespace, and then read whitespace, you know you hit a word boundary, so increment the word count, and save that word to your set of unique words. I realize the diagram doesn’t look much like C++, but it is actually easy to convert. Just use an integer (or even boolean in this case) for which node you are in, and update it according to the diagram as you read characters.</p>
+<h3 id="small-errors-in-counting">Small errors in counting</h3>
+<ul>
+<li>At first, your character count may be off from that of <code>wc</code> by a little bit, probably because you forgot to count the newlines as characters.</li>
+<li>If your word count is off as well, make sure you are not forgetting the last word in each line.</li>
+<li>See the above remarks about punctuation…</li>
+</ul>
+<h3 id="useful-stdstring-and-stdset-functions">Useful <code>std::string</code> and <code>std::set</code> functions</h3>
+<p>The following <a href="http://www.cplusplus.com/reference/string/string/"><code>string</code> functions</a> might be useful:</p>
+<ul>
+<li>The <a href="http://www.cplusplus.com/reference/string/string/length/"><code>length()</code> function</a></li>
+<li>The <a href="http://www.cplusplus.com/reference/string/string/operator+=/"><code>+=</code> operator</a></li>
+</ul>
+<p>And you will want to familiarize yourself with the <a href="http://www.cplusplus.com/reference/stl/set/"><code>set</code> functions</a> too. One note on the <code>set</code> class: at first, it may be a little less than obvious as to how to see what’s inside it. If you want to print the contents of the set (for debugging), use a loop like this:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp">set&lt;string&gt; words;
+<span class="co">// put stuff into words variable...</span>
+<span class="co">// then print contents:</span>
+<span class="kw">for</span> (set&lt;string&gt;::iterator i = words.begin(); i!=words.end(); i++) {
+    cout &lt;&lt; *i &lt;&lt; endl;
+}</code></pre></td></tr></table></div>
+<p>The mysterious part is the <code>iterator</code> business. It is an abstraction of an integer index into an array in some sense. We’ll get to that later; don’t worry about it for now.</p>
+<h3 id="makefiles">Makefiles</h3>
+<p>I again gave you a simplistic makefile for your convenience. Using the tutorials (<a href="http://frank.mtsu.edu/~csdept/FacilitiesAndResources/make.htm">here</a> and <a href="http://www.cs.umd.edu/class/fall2002/cmsc214/Tutorial/makefile.html">here</a>), try to reverse engineer it if you have time.</p>
+<!---}}-->
+<!---{{ Submission Procedure-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Your assignment will be graded by the TAs soon after the deadline, possibly during recitation (so you should be prepared to explain what you wrote!). For full credit, your project should</p>
+<ol style="list-style-type: decimal">
+<li>Pass the automated tests;</li>
+<li>Be hosted on bitbucket;</li>
+<li>Have non-trivial contributions from each team member (this should be reflected in the commit logs).</li>
+</ol>
+<!---}}-->
+<!---{{ Appendix: Alternate Input Methods-->
+<h2 id="appendix-alternate-input-methods">Appendix: Alternate Input Methods</h2>
+<p>Other quick alternatives for sending test input to your program are to use <code>echo -e</code> or <a href="http://tldp.org/LDP/abs/html/here-docs.html">here documents</a>. Examples:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> -e <span class="st">&quot;hello there\nthis is a test&quot;</span> <span class="kw">|</span> <span class="kw">./wordcount</span>
+        <span class="kw">2</span>       6       27       2       6</code></pre></div>
+<p>Note that the <code>-e</code> argument to <code>echo</code> enables the use of escape sequences, so that we can type a newline into the string with <code>\n</code>. Now a “here document” example:</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">$ ./wordcount &lt;&lt;EOF
+&gt; this is another example
+&gt; this example has multiple lines
+&gt; not all lines are unique
+&gt; not all lines are unique
+&gt; EOF
+        4       19      106     3       11</code></pre></div>
+<p><em>Note:</em> The “EOF” could be replaced by pretty much any other word, like “BlueberryPancakes”, “pineapple”, or “red”. It is just an “end of input” marker to let the shell know that you’re done typing and now its the computer’s turn to do some work.</p>
+<!---}}-->
+<!---{{ links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+</body>
+</html>
