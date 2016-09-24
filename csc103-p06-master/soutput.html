@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Source Code</title>
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #839496; background-color: #002b36; }
+body { font-family: monospace; color: #839496; background-color: #002b36; }
+.statement { color: #719e07; font-weight: bold; }
+.comment { color: #586e75; font-style: italic; }
+.strlit { color: #2aa198; }
+.preproc { color: #cb4b16; font-weight: bold; }
+.type { color: #b58900; }
+.numeric { color: #6c71c4; }
+.escseq { color: #dc322f; }
+.error { color: #dc322f; font-weight: bold; font-size: larger}
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class='preproc'>#include</span> &lt;iostream&gt;
+<span class='statement'>using</span> std::cin;
+<span class='statement'>using</span> std::cout;
+<span class='statement'>using</span> std::endl;
+<span class='preproc'>#include</span> &lt;string&gt;
+<span class='statement'>using</span> std::string;
+<span class='preproc'>#include</span> &lt;map&gt;
+<span class='statement'>using</span> std::map;
+<span class='preproc'>#include</span> &lt;initializer_list&gt; <span class='comment'>// for setting up maps without constructors.</span>
+
+<span class='comment'>// usually global variables are a bad thing, but for simplicity,</span>
+<span class='comment'>// we&apos;ll make an exception here.</span>
+
+<span class='comment'>// initialize our map with the keywords from our list:</span>
+map&lt;string, <span class='type'>short</span>&gt; reserved = {
+<span class='preproc'>#include</span> <span class='strlit'>&quot;keywords.txt&quot;</span>
+};
+<span class='comment'>// note: this is not a very standard use of #include...</span>
+
+<span class='type'>int</span> main() {
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='comment'>//do stuff</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='type'>int</span> x = <span class='numeric'>77</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='type'>int</span> y = x * <span class='numeric'>91</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; <span class='strlit'>&quot;this is super fun.</span><span class='escseq'>\n</span><span class='strlit'>&quot;</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; <span class='strlit'>&quot;:D</span><span class='escseq'>\n</span><span class='strlit'>&quot;</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; <span class='strlit'>&quot;let&apos;s make sure comments // in strings are strings</span><span class='escseq'>\n</span><span class='strlit'>&quot;</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='comment'>// and that &quot;strings&quot; in comments are &quot;comments&quot;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; <span class='strlit'>&quot;a bad escape: </span><span class='error'>\o causes errors&quot;;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='comment'>// could also have errors parsing numeric constants:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; <span class='numeric'>99</span><span class='error'>ZXY;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class='statement'>return</span> <span class='numeric'>0</span>;
+}
+</pre>
+</body>
+</html>

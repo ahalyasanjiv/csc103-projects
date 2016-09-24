@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>103 Project 6: Syntax Highlighting (Part II)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">103 Project 6: Syntax Highlighting (Part II)</h1>
+</div>
+<h3 id="due-friday-april-22nd-1159pm"><em>Due:</em> Friday, April 22nd @ 11:59pm</h3>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>We continue our <a href="http://en.wikipedia.org/wiki/Syntax_highlighting">syntax highlighting</a> project. In this installment, we will produce a basic syntax highlighting tool which reads lines of C++ code from standard input, and writes html to standard output. See the project 5 documentation for the high level overview.</p>
+<p>Anyway, here are a few things you can expect to learn from this:</p>
+<ul>
+<li>More about string handling.</li>
+<li>The <code>&lt;map&gt;</code> data structure.</li>
+<li>C++ syntax.</li>
+<li>Basic html/css concepts.</li>
+<li>Finite state machines (FSM’s).</li>
+<li>Fun ways to abuse <code>#include</code>.</li>
+</ul>
+<h3 id="important-notes-on-grading">Important Notes on Grading</h3>
+<p>This project is to be done collaboratively. Teams <strong>must be 3 – 4 people</strong>, and <strong>your teammates must be in the same recitation</strong>. Details:</p>
+<ul>
+<li>Everyone should be signed up on [bitbucket][bitbucket].</li>
+<li>Designate one member of your team to be the leader / repository owner. (They’ll set up the repository and grant access to the rest of the team.)</li>
+<li>Commits from the team members can be incorporated in one of two ways:
+<ol style="list-style-type: decimal">
+<li>Follow the instructions on <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">collaborating with git</a>. (Team leaders: don’t forget to give other members write access to the repository.)</li>
+<li>Use <a href="https://www.atlassian.com/git/tutorials/making-a-pull-request/example">bitbucket’s fork + pull request</a> features.</li>
+</ol>
+<strong>NOTE:</strong> Either way you do it, you should follow the guidelines given above about <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">avoiding merge conflicts</a>.</li>
+<li>Team leaders – please <em>edit</em> (or start, if it doesn’t exist) a piazza post containing the url of your repository, and a list of the team’s members. Please make different posts for each section (MM,MM2,MM3).</li>
+<li>Your projects will be graded based on whether or not they pass the automated tests, and whether or not each team member is contributing (as evidenced by the commit logs).</li>
+</ul>
+<!---}}-->
+<!---{{ intro-->
+<h2 id="introduction">Introduction</h2>
+<p>Last time, you learned some tools for analyzing syntax: in particular, <a href="http://en.wikipedia.org/wiki/State_diagram">state diagrams</a> and <a href="http://en.wikipedia.org/wiki/Finite-state_machine">finite state machines</a>. Finite state machines let us read the input one character at a time, whilst keeping track of a <em>state</em> that told us how we should interpret the next character. A couple of tricky things came up. In particular, dealing with string literals, escape sequences and comments required some care. Here are a few examples to remind you:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">cout &lt;&lt; <span class="st">&quot;comments // shouldn&#39;t be marked up here&quot;</span>; <span class="co">// see the difference?</span>
+<span class="dt">int</span> x; <span class="co">// x is a so-called &quot;variable&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">cout &lt;&lt; <span class="st">&quot;a </span><span class="ch">\&quot;</span><span class="st">string</span><span class="ch">\&quot;</span><span class="st"> with quotes inside.&quot;</span>;</code></pre></div>
+<p>To make things a little easier, we considered a simplified C++ syntax that didn’t worry about multi-line comments, or about line continuation and multi-line string literals. Here was the state diagram that we came up with:</p>
+<div class="figure">
+<img src="fsm.svg" alt="Fig. 1: State Diagram for (limited) C++ Syntax" />
+<p class="caption">Fig. 1: State Diagram for (limited) C++ Syntax</p>
+</div>
+<p>Now that we have the finite state machine in hand, what’s next? Thanks to the FSM, we know exactly where to mark comments, strings, etc., so it seems like it might be fairly straightforward to finish the job. Not quite! As it turns out, there are number of technical details that crop up. Let’s take a look.</p>
+<!---}}-->
+<!---{{ background-->
+<h2 id="background">Background</h2>
+<p>You may need to get up to speed on a few things before tackling this assignment. In particular, you’ll want to familiarize yourself with some html and css basics. (Don’t worry – this is easy.)</p>
+<h3 id="html">HTML</h3>
+<p>In case you are unfamiliar with the way that <a href="http://en.wikipedia.org/wiki/HTML">html</a> works, you can read a little bit <a href="http://www.w3schools.com/html/html_intro.asp">here</a>. To change the attributes of text, you just surround it with special markers that instruct the browser to change how it draws. Let’s take a look at a simple example, where we’ll make a region of text blue:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">Here is regular text; this is <span class="kw">&lt;span</span><span class="ot"> style=</span><span class="st">&quot;color:blue&quot;</span><span class="kw">&gt;</span>blue text<span class="kw">&lt;/span&gt;</span>.</code></pre></div>
+<p>The browser when then render the “blue text” part in blue. Note that we can combine a number of other attributes simultaneously. For example:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">Here we have <span class="kw">&lt;span</span><span class="ot"> style=</span><span class="st">&quot;color:blue;font-weight:bold&quot;</span><span class="kw">&gt;</span>blue, bold text<span class="kw">&lt;/span&gt;</span>.</code></pre></div>
+<p>You can mess around with these examples using the <a href="http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_span">w3schools tryit editor</a>. Easy, right? You just tell the browser to make things blue, and it does. You have lots of examples at your disposal; you are reading html right now, in fact.</p>
+<h3 id="css">CSS</h3>
+<p>Hand in hand with html, are <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">cascading style sheets (css)</a>. Css adds much needed <a href="http://en.wikipedia.org/wiki/Modular_design">modularity</a> to html: you can apply styles (like coloring text) based on <em>variables</em> rather than just constants. That way, if you have a bunch of items that you want to look the same (e.g., keywords in your highlighted C++ code) you can have them all reference the same variable that determines how they are drawn. This makes it much easier to change later on: you only have to change the one variable instead of dozens of constants. Take a look at the following example. First, we can define a css class named <code>keyword</code> and describe how keyword text should be drawn:</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.keyword</span> <span class="kw">{</span> <span class="kw">color:</span><span class="dt">#719e07</span><span class="kw">;</span> <span class="kw">font-weight:</span><span class="dt">bold</span><span class="kw">;</span> <span class="kw">}</span></code></pre></div>
+<p>And then to draw text using the <code>keyword</code> styles, we just reference the class:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;keyword&quot;</span><span class="kw">&gt;</span>keyword text<span class="kw">&lt;/span&gt;</span>.</code></pre></div>
+<p>Clean and simple, no? These tools aren’t quite as trivial as I’ve made them seem, but for our purposes, they may as well be. This is essentially all that you need to know about html / css for our assignment.</p>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<h3 id="syntax-elements">Syntax Elements</h3>
+<p>There are quite a few pieces of syntax that we could try to highlight, but we will just focus on the following:</p>
+<ul>
+<li>statement keywords (like <code>if,else,for,while...</code>)</li>
+<li>datatype keywords (like <code>int,double,long,char,bool...</code>)</li>
+<li>string literals (when you type strings between quotes)</li>
+<li>preprocessor directives (e.g., <code>#include</code>)</li>
+<li>comments (but only the <code>// comment</code> variety, not the <code>/* comment */</code> ones)</li>
+<li>numeric constants (e.g. <code>1234</code>)</li>
+<li>escape sequences (e.g. <code>\n</code>)</li>
+<li>syntax errors in literals (bad escape sequences, invalid numeric constants)</li>
+</ul>
+<p>I’ve put these into a css header with colors and such that look something like my Vim setup. Here are the classes:</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.statement</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#719e07</span><span class="kw">;</span> <span class="kw">font-weight:</span> <span class="dt">bold</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.comment</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#586e75</span><span class="kw">;</span> <span class="kw">font-style:</span> <span class="dt">italic</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.strlit</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#2aa198</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.preproc</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#cb4b16</span><span class="kw">;</span> <span class="kw">font-weight:</span> <span class="dt">bold</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.type</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#b58900</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.numeric</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#6c71c4</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.escseq</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#dc322f</span><span class="kw">;</span> <span class="kw">}</span>
+<span class="fl">.error</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">#dc322f</span><span class="kw">;</span> <span class="kw">font-weight:</span> <span class="dt">bold</span><span class="kw">;</span> <span class="kw">font-size:</span> <span class="dt">larger</span><span class="kw">}</span></code></pre></div>
+<p>We’ve made the syntax errors obnoxiously large, to make sure they don’t go unnoticed. This is all inside of the <code>header.html</code> file. Feel free to change them to other colors or styles that you like better.</p>
+<p>At last, we can finally show a bit of input / output. Here is what your program is supposed to do:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="st">&quot;int x; //declare an int&quot;</span> <span class="kw">|</span> <span class="kw">./cpp2html</span>
+<span class="kw">&lt;span</span> class=<span class="st">&#39;type&#39;</span><span class="kw">&gt;</span>int<span class="kw">&lt;</span>/span<span class="kw">&gt;</span> x<span class="kw">;</span> <span class="kw">&lt;span</span> class=<span class="st">&#39;comment&#39;</span><span class="kw">&gt;</span>//declare an int<span class="kw">&lt;</span>/span<span class="kw">&gt;</span></code></pre></div>
+<p>Note that instead of putting the styles inline, we reference the css classes. This would be easy to change if you wanted, but it would make the output much more cluttered and harder for you to debug. To reiterate:</p>
+<p><em>Important Note:</em> we are assuming that the final document will have css classes for each of the highlighting groups we defined. If you want to produce a complete html document that includes the proper html headers and footers, as well as the css classes, use the <code>translate.sh</code> script:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./translate.sh</span> inputfile.cpp <span class="kw">&gt;</span> outputfile.html</code></pre></div>
+<p>The <code>translate.sh</code> script is a very thin wrapper for your <code>cpp2html</code> program. It just runs your program on <code>inputfile.cpp</code>, and inserts the right headers / footers in the output so that <code>outputfile.html</code> is a <a href="http://validator.w3.org/">proper html document</a>.</p>
+<h3 id="techincal-stuff">Techincal Stuff</h3>
+<p>To make this project feasible for a week or so of work, I felt compelled to give you a good head start. I’ll outline here the things that have already been done for you. If something isn’t clear, <strong>please ask questions.</strong></p>
+<h4 id="the-highlighting-dictionary">The highlighting dictionary</h4>
+<p>I’ve enumerated the kinds of things that we need to highlight with the following:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="kw">enum</span> {
+    hlstatement,  <span class="co">// used for &quot;if,else,for,while&quot; etc...</span>
+    hlcomment,    <span class="co">// for comments</span>
+    hlstrlit,     <span class="co">// for string literals</span>
+    hlpreproc,    <span class="co">// for preprocessor directives (e.g., #include)</span>
+    hltype,       <span class="co">// for datatypes and similar (e.g. int, char, double)</span>
+    hlnumeric,    <span class="co">// for numeric literals (e.g. 1234)</span>
+    hlescseq,     <span class="co">// for escape sequences</span>
+    hlerror,      <span class="co">// for parse errors, like a bad numeric or invalid escape</span>
+    hlident       <span class="co">// for other identifiers.  Probably won&#39;t use this.</span>
+};</code></pre></td></tr></table></div>
+<p>This just associates an integer with each type of thing that we need to highlight. The next structure is a map, which relates each of the above syntax elements to its corresponding html <code>&lt;span&gt;</code> tag:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="co">// highlighting spans:</span>
+map&lt;<span class="dt">int</span>, string&gt; hlspans = {
+    {hlstatement, <span class="st">&quot;&lt;span class=&#39;statement&#39;&gt;&quot;</span>},
+    {hlcomment, <span class="st">&quot;&lt;span class=&#39;comment&#39;&gt;&quot;</span>},
+    {hlstrlit, <span class="st">&quot;&lt;span class=&#39;strlit&#39;&gt;&quot;</span>},
+    {hlpreproc, <span class="st">&quot;&lt;span class=&#39;preproc&#39;&gt;&quot;</span>},
+    {hltype, <span class="st">&quot;&lt;span class=&#39;type&#39;&gt;&quot;</span>},
+    {hlnumeric, <span class="st">&quot;&lt;span class=&#39;numeric&#39;&gt;&quot;</span>},
+    {hlescseq, <span class="st">&quot;&lt;span class=&#39;escseq&#39;&gt;&quot;</span>},
+    {hlerror, <span class="st">&quot;&lt;span class=&#39;error&#39;&gt;&quot;</span>}
+};
+<span class="co">// note: initializing maps as above requires the -std=c++0x compiler flag,</span>
+<span class="co">// as well as #include&lt;initializer_list&gt;.  Very convenient though.</span>
+<span class="co">// to save some typing, store a variable for the end of these tags:</span>
+string spanend = <span class="st">&quot;&lt;/span&gt;&quot;</span>;</code></pre></td></tr></table></div>
+<p><strong>Important example:</strong> So, if you have a string <code>str</code> which you have determined is a numeric constant, then you would want to write the following string to the output:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">hlspans[hlnumeric] + str + spanend;</code></pre></div>
+<p>If <code>str</code> contained <code>1234</code>, this would produce html something like the following:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&#39;numeric&#39;</span><span class="kw">&gt;</span>1234<span class="kw">&lt;/span&gt;</span></code></pre></div>
+<p>Also provided is a dictionary of keywords for highlighting which includes all the basic data types in C++, all the statements, and most of the preprocessor directives. It is in a file called <code>keywords.txt</code>, which consists of entries something like this:</p>
+<pre><code>{&quot;for&quot;,hlstatement}, {&quot;long&quot;,hltype},{&quot;int&quot;,hltype} ...</code></pre>
+<p>The first part of each pair is the keyword string, and the second part is one of the integers defined above that tells what kind of highlighting should be applied to that string. This is included in your program via the following:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp">map&lt;string, <span class="dt">short</span>&gt; hlmap = {
+<span class="ot">#include &quot;res/keywords.txt&quot;</span>
+};</code></pre></td></tr></table></div>
+<p>This is not a very standard way to use <code>#include</code>, but convenient, nevertheless. It keeps your source code un-cluttered. (Remember what I told you about how <code>#include</code> works, and you should be able to figure it out.) Anyway, note the use of the <a href="http://www.cplusplus.com/reference/stl/map/">map</a> data structure. If you have some <code>string str</code> and you want to see if it should be highlighted, you can just query the map as follows, just as you’ve seen in lecture:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp">string str; <span class="co">// contains potential keyword</span>
+map&lt;string, <span class="dt">short</span>&gt;::iterator it;  <span class="co">// for searches in our map.</span>
+it = hlmap.find(str);
+<span class="kw">if</span> (it != hlmap.end()) {
+    <span class="co">// the string str contains a keyword.</span>
+    <span class="co">// hlmap[str] is the type (e.g. hlstatement)</span>
+}</code></pre></td></tr></table></div>
+<p>In case you have found a keyword, the next thing you’ll want to do is insert a string containing the html <code>&lt;span&gt;</code> tag into the output. You can either get the type from <code>it-&gt;second</code>, or just use <code>hlmap</code> again like this:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">hlspans[hlmap[str]] + str + spanend;</code></pre></div>
+<p>If you want, you could even wrap all this up in a function to further reduce the clutter in the main sections of your code.</p>
+<h4 id="escape-chars-in-html">Escape chars in HTML</h4>
+<p>Another little subtlety is <a href="https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">html escape chars</a>. You can’t just stick a <code>&lt;</code> in your html, or else the browser will get confused, trying to read that as the beginning of a tag. You can see a list of such things <a href="https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">here</a>. Lucky for you, I’ve already taken care of this as well. The following function will take a character and return a string containing the corresponding html escape sequence (or just a string containing that character itself, if it does not need to be escaped).</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">string translateHTMLReserved(<span class="dt">char</span> c);</code></pre></div>
+<p>You should apply this function pretty much every time that you are adding a character to the output.</p>
+<h3 id="testing">Testing</h3>
+<p>I have provided a test input file named <code>testfile.cpp</code> in the <code>res/</code> directory that goes through most of the cases of interest (comments inside strings, escape chars, etc.). The output of my program on <code>testfile.cpp</code> is also supplied with the name <code>soutput.html</code>. Run <code>./translate.sh &gt; output.html</code> and then run a diff with mine. This should give you a good idea of how you are doing. However, note that your output doesn’t have to be the exact same as mine, so long as it <em>looks the same once rendered in a browser</em>.</p>
+<h3 id="file-listing">File Listing</h3>
+<p>In case you are getting confused, here’s a quick summary of the files that are distributed with the project.</p>
+<ul>
+<li><code>cpp2html.cpp</code> This is the main implementation file, where all of your code goes.</li>
+<li><code>fsm.h</code> This is the header file of the finite state machine that you worked on last time (note: there were some minor updates to it).</li>
+<li><code>fsm.cpp</code> This is the implementation of the finite state machine that I’ve given you. Nothing for you to do here.</li>
+<li><code>res/keywords.txt</code> This is the list of keywords to help with syntax highlighting.</li>
+<li><code>res/testfile.cpp</code> This is some test input for you to check your program with.</li>
+<li><code>soutput.html</code> The output of my program on <code>testfile.cpp</code>.</li>
+<li><code>translate.sh</code> A shell script wrapper for your program to make a complete html file (it includes the needed css/html headers and footers).</li>
+<li><code>res/{header|footer}.html</code> The css/html headers and footers needed for <code>translate.sh</code>.</li>
+<li><code>Makefile</code> The makefile.</li>
+</ul>
+<!---}}-->
+<!---{{ Hints and Notes-->
+<h2 id="hints-and-notes">Hints and Notes</h2>
+<h3 id="compiling">Compiling</h3>
+<p>You will need to include the <code>-std=c++0x</code> compiler flag in order to initialize the maps from a list rather than a constructor. You may need to explicitly add this option if you are using eclipse. I have of course already included this in the makefile, so no need to worry in that case.</p>
+<h3 id="useful-stl-functions">Useful STL Functions</h3>
+<p>You may find the following functions useful (I did, anyway):</p>
+<ul>
+<li><a href="http://www.cplusplus.com/reference/stl/map/find/"><code>map::find(...)</code></a></li>
+<li>The <a href="http://www.cplusplus.com/reference/stl/map/">map class</a> in general</li>
+</ul>
+<h3 id="general-approach">General Approach</h3>
+<p>I would recommend writing a function that processes a single line (inserting all the needed tags and returning the resulting string), and then calling that over and over in a loop from <code>main()</code>. Processing a line is of course the main challenge! If you are having trouble, here are a few ideas:</p>
+<ul>
+<li>Keep a string variable for the return value, another for the current syntax element you are reading, and one more for (the html translation of) the current character you are reading.</li>
+<li>Read an input line <em>one character at a time</em>. Update the state, and then based on the new state, update the above variables.</li>
+<li>Stare at the state diagram. When do you need to take action?? Usually something needs to happen <em>when you change state</em>.</li>
+<li>Upon changing state, you’ve identified some piece of syntax. You might know what it is straight away, if say you are leaving the <code>scannum</code> state. In this case, apply the tags as shown above, and concatenate that to the output string. Else, you may have to search the keyword database to determine what kind of tag (if any) to apply.</li>
+</ul>
+<h4 id="some-tricky-points">Some tricky points</h4>
+<ul>
+<li><em>What to do with the current input symbol.</em> When you encounter an input symbol that causes you to change state, be careful about what you do with that character. It will depend on the to and from states in general. If it is a quote <code>&quot;</code> that is ending a string literal, then it should go with the string literal, and be enclosed in that span. However, if you were reading a numeric constant and ran into a delimiter like <code>+</code>, or whitespace, then that symbol should be the start of a new syntax element instead.</li>
+<li><em>Special cases at the end.</em> Be sure to close off the spans at the end of the line. I found it helpful to add the trailing <code>\n</code> character to the input string: the FSM has <em>implicit</em> arrows back to the start state <em>whenever a newline is encountered</em>. It is a bit messy to draw, but here is an updated diagram showing the newlines taking you back to the start from the comments state and from the error state.</li>
+</ul>
+<div class="figure">
+<img src="fsmextnd.svg" alt="Fig. 2: Enhanced State Diagram with newline Arrows" />
+<p class="caption">Fig. 2: Enhanced State Diagram with newline Arrows</p>
+</div>
+<h3 id="other-advice">Other Advice</h3>
+<p><strong>Start Early.</strong> This project is likely the hardest one yet. Don’t panic: you should have enough time to get it done, but certainly don’t procrastinate.</p>
+<p>99% of you <strong>will</strong> run into problems. If you catch them early, then you’ll have time to talk it out with your instructors. If you wait until the last minute to do this, you will be doomed. So go start coding right now. And remember: Compile and commit often.</p>
+<!---}}-->
+<!---{{ Submission proc-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Your assignment will be graded by the TAs soon after the deadline, possibly during recitation (so you should be prepared to explain what you wrote!). For full credit, your project should</p>
+<ol style="list-style-type: decimal">
+<li>Produce output that passes a quick visual inspection;</li>
+<li>Be hosted on bitbucket;</li>
+<li>Have non-trivial contributions from each team member (this should be reflected in the commit logs).</li>
+</ol>
+<!---}}-->
+<!---{{ Links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+</body>
+</html>

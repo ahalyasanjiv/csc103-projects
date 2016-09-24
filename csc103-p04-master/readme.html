@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>103 Project 4: Triangles + Pythagorean Triples</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">103 Project 4:<br />
+Triangles + Pythagorean Triples</h1>
+</div>
+<h2 id="due-tuesday-march-22nd-1159pm"><em>Due:</em> Tuesday March 22nd @ 11:59pm</h2>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>For this project, you are asked to implement part of a simple triangle class, and write a function that will search for right triangles<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> with certain properties. It should be a simple project, and is mainly designed to give you a breather and to reinforce what we have covered. However, there are a few new things that we’ll introduce:</p>
+<ul>
+<li>Working with multiple files (separating the implementation from the interface).</li>
+<li>Making your own datatypes via <code>class</code> constructs.</li>
+<li>A bit about <em>arrays</em> in C++.</li>
+</ul>
+<p>You can also look forward to learning more about:</p>
+<ul>
+<li>Basic C++ data structures like <code>&lt;vector&gt;</code>.</li>
+<li>Functions and arguments.</li>
+<li>The technique of “exhaustive search” (a.k.a., “brute force”).</li>
+<li>Datatypes</li>
+</ul>
+<h3 id="recommended-reading">Recommended Reading</h3>
+<p>Most of the new concepts you’ll need are covered in chapter 9 of the book. You can also read <a href="http://www.charlesli.org/pic10a/lectures/lecture17/index.html">Professor Li’s Notes</a> on structs (which are essentially the same as classes), and <a href="http://www.charlesli.org/pic10a/lectures/lecture12/index.html">Professor Li’s Notes</a> on arrays.</p>
+<div class="figure">
+<img src="http://upload.wikimedia.org/wikipedia/commons/d/d2/Pythagorean.svg" alt="Fig. 1 Illustration of the Pythagorean Theorem, stolen from Wikimedia" />
+<p class="caption">Fig. 1 Illustration of the Pythagorean Theorem, stolen from Wikimedia</p>
+</div>
+<h2 id="important-notes-on-grading">Important Notes on Grading</h2>
+<p>This project is to be done collaboratively. Teams <strong>must be 3 – 4 people</strong>, and <strong>your teammates must be in the same recitation</strong>. Details:</p>
+<ul>
+<li>Everyone should be signed up on [bitbucket][bitbucket].</li>
+<li>Designate one member of your team to be the leader / repository owner. (They’ll set up the repository and grant access to the rest of the team.)</li>
+<li>Commits from the team members can be incorporated in one of two ways:
+<ol style="list-style-type: decimal">
+<li>Follow the instructions on <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">collaborating with git</a>. (Team leaders: don’t forget to give other members write access to the repository.)</li>
+<li>Use <a href="https://www.atlassian.com/git/tutorials/making-a-pull-request/example">bitbucket’s fork + pull request</a> features.</li>
+</ol>
+<strong>NOTE:</strong> Either way you do it, you should follow the guidelines given above about <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/scm.html#collaborate">avoiding merge conflicts</a>.</li>
+<li>Team leaders – please <em>edit</em> (or start, if it doesn’t exist) a piazza post containing the url of your repository, and a list of the team’s members. Please make different posts for each section (MM,MM2,MM3).</li>
+<li>Your projects will be graded based on whether or not they pass the automated tests, and whether or not each team member is contributing (as evidenced by the commit logs).</li>
+</ul>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<p>Your job is very simple: just write the following four functions:</p>
+<ol style="list-style-type: decimal">
+<li><code>findRightTriangles</code></li>
+<li><code>area</code></li>
+<li><code>congruent</code></li>
+<li><code>similar</code></li>
+</ol>
+<p>Details follow:</p>
+<h3 id="vectortriangle-findrighttrianglesunsigned-long-l-unsigned-long-h"><code>vector&lt;triangle&gt; findRightTriangles(unsigned long l, unsigned long h)</code></h3>
+<p>This function searches for <em>right triangles</em> satisfying certain conditions:</p>
+<ol style="list-style-type: decimal">
+<li>All the side lengths must be <strong>integers</strong></li>
+<li>The triangles must be <strong>right triangles</strong></li>
+<li>The perimeter must be <strong>bounded</strong> above and below by input parameters; that is, <span class="math inline"><em>l</em> ≤ <em>p</em><em>e</em><em>r</em><em>i</em><em>m</em><em>e</em><em>t</em><em>e</em><em>r</em> ≤ <em>h</em></span>.</li>
+</ol>
+<p>The <code>findRightTriangles</code> function should return a <code>vector</code> of triangles which satisfy the above requirements (right, integer sides), such that the perimeter <span class="math inline"><em>p</em></span> satisfies <span class="math inline"><em>l</em> ≤ <em>p</em> ≤ <em>h</em></span>.</p>
+<h3 id="unsigned-long-trianglearea"><code>unsigned long triangle::area()</code></h3>
+<p>This function simply computes the area of the triangle. <em>Note:</em> that you can assume <code>area</code> will only be called for right triangles with integer sides. <em>Note:</em> this is a <em>member function</em> of the triangle class, which is why there is no input parameter.</p>
+<h3 id="bool-congruent...-and-similar..."><code>bool congruent(...)</code> and <code>similar(...)</code></h3>
+<p>These last two return whether or not the two input triangles are congruent and similar, respectively. (In case you have forgotten what these terms mean, go look at <a href="http://en.wikipedia.org/wiki/Congruence_%28geometry%29">wikipedia</a>.)</p>
+<h3 id="aside-const-by-reference-parameters">Aside: <code>const</code> by reference parameters</h3>
+<p>Note the use of the <code>const</code> keyword in the last two functions. Testing for congruence or similarity probably should <strong>not</strong> result in the parameters being modified, so it seems like by-value is what we want. However, passing a structure <em>by reference</em> is <em>more efficient</em> than by value, and we wouldn’t want to miss out on that. So what to do? The idea is to use a <code>const</code> by-reference parameter. In this way, we kind of “fake” a by-value call. The <code>const</code> keyword ensures that the parameters won’t be changed by the function (unless someone goes way out of their way). <em>Exercise:</em> When you are writing the last two functions, try to modify <code>t1</code> or <code>t2</code> somewhere in the function definition, and see what the compiler tells you.</p>
+<p>As was mentioned, there isn’t a lot of work to do for this project. <strong>That doesn’t mean you should procrastinate.</strong> Start early, and take some time to absorb the few new ideas we are introducing. In particular:</p>
+<h3 id="what-to-watch-for">What to watch for</h3>
+<p><strong>Classes:</strong> We’ll be using a class to store triangle data. You have already had some experience with classes, e.g., <code>string</code> and <code>set</code> and <code>vector</code>. But now for the first time, you are seeing <em>how to write your own</em>. This will hopefully generate lots of questions.</p>
+<p><strong>Multiple files:</strong> the project is now separated into a header file, an implementation file, and a main program. The header file describes <em>what</em> the various parts of the program do, while the implementation describes <em>how</em> they do it. Again, this should be generating questions. Perhaps you are thinking “Why would anyone want to do this?” or “Isn’t it just making things more complicated?” See if you can find answers.</p>
+<p>Now would be an excellent time to go back and review the <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/commandline.html">compiling on the command line tutorial</a>. Also, go back and re-read page 48 of the book. Now that you have multiple files, this stuff should start to make a lot more sense. You have to separately compile <code>triangles.cpp</code> and the main program’s file, and then link the results together into an executable. I have given you a makefile to do this (see below) but before you use it, do it by hand, with your book sitting next to you, open to page 48.</p>
+<p><strong>There are two <code>main()</code> functions:</strong> One of them is for you to do your own debugging (<code>main.cpp</code>). The other (<code>check.cpp</code>) is to run a test script. I gave you a makefile to manage this. If you just run <code>make</code> from your terminal, it will compile and link everything appropriately:</p>
+<ul>
+<li><code>check.o</code> linked with your <code>triangles.o</code> will produce the <code>check</code> executable;</li>
+<li><code>main.o</code> linked with your <code>triangles.o</code> will produce the <code>main</code> executable. Currently, <code>main.cpp</code> is pretty empty. It is for you to write your own test code.</li>
+</ul>
+<h3 id="other-exercises">Other exercises</h3>
+<p>You should also try the following while you are programming.</p>
+<p><em>Operators:</em> If you have two <code>triangle</code> instances, you can compare them for equality as follows:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp">triangle t1(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>);
+triangle t2(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>);
+
+cout &lt;&lt; (t1 == t2) &lt;&lt; endl;</code></pre></td></tr></table></div>
+<p>The above code would output <code>0</code> meaning that the two are not equal. However, using congruence might be a more sensible definition of equality. As it turns out, you can tell C++ to change its definition of equality if you want. This is done by defining <code>operator==(...)</code> for triangles. Read more of chapter 9 regarding operators for details, and if you want, try to write such a function inside of <code>main.cpp</code>.</p>
+<p><em>Complexity:</em> Look at your code for <code>findRightTriangles</code>. Think carefully about the sequence of steps it goes through to compute the answer. Supposing you call the function with the lower bound <code>l=1</code>, how much time does your algorithm take in terms of the other parameter <code>h</code>? I.e., can you find a polynomial expression <span class="math inline"><em>T</em>(<em>h</em>)</span> that models how many statements must be executed in order to compute the answer? The expression doesn’t have to be very precise – see if you can just figure out the <em>degree</em> of the polynomial.</p>
+<!---}}-->
+<!---{{ Testing-->
+<h3 id="testing">Testing</h3>
+<p>Before you attempt any automated tests, <strong>write your own</strong> for each small piece of the assignment. The <code>main.cpp</code> file is provided for this purpose. As you are writing the functions for <code>triangles.cpp</code>, go to <code>main.cpp</code> and write simple tests to check what you’ve done and help you debug. Once you think you have things working, then run the automated tests:</p>
+<p>To test, compile using the makefile (<code>$ make</code>) and then run <code>./check &gt; output</code> (which just puts the <code>./check</code> output in a file named <code>output</code>). Then compare the expected output (<code>soutput</code>) with what your program produced (<code>output</code>). Using a diff tool like vimdiff might be helpful: <code>vimdiff {,s}output</code>. Or, you could do it all in one step like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">make</span> <span class="kw">&amp;&amp;</span> <span class="kw">vimdiff</span> <span class="kw">&lt;(./check)</span> soutput</code></pre></div>
+<p>If there are no differences, rejoice. Otherwise, see if you can figure out what went wrong. Running <code>./check</code> (no redirection) might be helpful, since it will show what test it is running, with your output right under each one. It might also be useful to add more <code>fprintf(stderr,...)</code> or <code>cerr &lt;&lt;</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> statements to check.cpp to print more details of each test (like exactly what triangles were being compared for similarity tests).</p>
+<h3 id="hints">Hints</h3>
+<ul>
+<li><code>findRightTriangles</code>: For this, there are formulas that will compute the integers you are after, but it might be easier to just use a brute-force approach. Construct a loop (perhaps nested loops) that runs over all the possibilities, and then filter out everything but the ones that match. I won’t test the program on really large integers, so don’t be too concerned over performance. Just get the right answers.</li>
+<li>Everything else: <code>area</code>,<code>congruent</code>,<code>similar</code>: The formulas are easy for figuring these out, but there is one kind of sticky point: you have no guarantees about the ordering of the edges. The easiest thing to do is put them in order first, and then do the comparisons / computations. For this, you can use the <a href="http://www.cplusplus.com/reference/algorithm/sort/"><code>sort()</code> function</a> from the <code>algorithm</code> library. Here’s an example:</li>
+</ul>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="ot">#include &lt;algorithm&gt;</span>
+<span class="kw">using</span> std::sort;
+<span class="dt">bool</span> triangle::area() {
+    <span class="co">// put the sides in an array:</span>
+    <span class="dt">unsigned</span> <span class="dt">long</span> sides[<span class="dv">3</span>] = {s1,s2,s3};
+    <span class="co">// sort the array:</span>
+    sort(sides,sides<span class="dv">+3</span>);
+    <span class="co">// at this point, sides[0] &lt;= sides[1] &lt;= sides[2]</span>
+}</code></pre></td></tr></table></div>
+<!---}}-->
+<!---{{ Submission Procedure-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Your assignment will be graded by the TAs soon after the deadline, possibly during recitation (so you should be prepared to explain what you wrote!). For full credit, your project should</p>
+<ol style="list-style-type: decimal">
+<li>Pass the automated tests;</li>
+<li>Be hosted on bitbucket;</li>
+<li>Have non-trivial contributions from each team member (this should be reflected in the commit logs).</li>
+</ol>
+<!---}}-->
+<!---{{ links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Although, the coolest triangles have historically been equilateral:<br />
+<img src="http://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" alt="floyd" />        <img src="http://zeldawiki.org/images/thumb/8/80/Triforce_Logo.png/240px-Triforce_Logo.png" alt="triforce" /><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Note <code>cerr</code> is just like cout, but prints to stderr, so the output file won’t be cluttered.<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+</body>
+</html>
