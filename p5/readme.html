@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>103 Project 5: Syntax Highlighting (Part I)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">103 Project 5: Syntax Highlighting (Part I)</h1>
+</div>
+<h3 id="due-friday-april-8th-1159pm"><em>Due:</em> Friday, April 8th @ 11:59pm</h3>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>This project asks you to write a tool that takes C++ code as input, and produces <a href="http://en.wikipedia.org/wiki/HTML">html</a> output, which applies <a href="http://en.wikipedia.org/wiki/Syntax_highlighting">syntax highlighting</a> via html tags. Most programming editors (e.g. Vim) will provide syntax highlighting to make code more readable. Unfortunately, your web browser does not understand C++ syntax, so when posting code for others to look at online, it will be kind of ugly. There are a number of programs that provide this capability; for example, Vim has the command <code>:TOhtml</code> which will create html output that is highlighted exactly as you see it. Here’s an <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/docs/main.cpp.html">example of the output</a> when run on the <code>main.cpp</code> file from project 4. But don’t worry – I won’t ask you to do anything quite that fancy. We’ll just focus on a subset of C++ syntax, and won’t do any of the folding stuff that Vim does.</p>
+<p>Anyway, here are a few things you can expect to learn from this (including part two of the assignment):</p>
+<ul>
+<li>More about string handling.</li>
+<li>More about <code>&lt;set&gt;</code>.</li>
+<li>The <code>&lt;map&gt;</code> data structure.</li>
+<li>C++ syntax.</li>
+<li>Basic html/css concepts.</li>
+<li>Finite state machines (FSM’s).</li>
+<li>Fun ways to abuse the <code>#include</code> preprocessor symbol.</li>
+</ul>
+<h3 id="important-notes-on-grading">Important Notes on Grading</h3>
+<p>As always,</p>
+<ul>
+<li>Code that does not compile will receive a 0.</li>
+<li>Files that are not properly named will receive a 0. (See the section below on “what to submit.”)</li>
+</ul>
+<!---}}-->
+<!---{{ intro-->
+<h2 id="introduction">Introduction</h2>
+<p>Take a look at some code in your editor, or at the <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103S16/docs/main.cpp.html">main test program for project 4</a>. Now sit for a few minutes and think about some <em>rules</em> that you could apply which would determine exactly when things should be highlighted. Okay – done yet? Good. Now see if your rules take care of the following cases:</p>
+<p><strong>Nested elements:</strong> Strings inside of comments are just comments, and comment markers inside of strings, are still just strings:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> x; <span class="co">// x is a so-called &quot;variable&quot;</span>
+cout &lt;&lt; <span class="st">&quot;comments // shouldn&#39;t be marked up here&quot;</span>; <span class="co">// see the difference?</span></code></pre></div>
+<p><strong>Escape characters:</strong> You can run into a quote character without it actually ending a string:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">cout &lt;&lt; <span class="st">&quot;a </span><span class="ch">\&quot;</span><span class="st">string</span><span class="ch">\&quot;</span><span class="st"> with quotes inside.&quot;</span>;</code></pre></div>
+<p>Okay, did your rules work out? If so, good for you :D Now I’m going to make it harder. Try to revise your set of rules so that they work in the following situation: You can only look at the code <em>one character at a time</em>. Pretend you have a big sheet of black construction paper with a tiny, one-character hole in it. You can assume the hole is initially over the first character, and then you have to just slide it around, one character at a time and tell me exactly where comments, keywords, string literals, etc. begin and end. Harder, right? If you don’t think so, go try to program it, and run it against the test data I’ve given you.</p>
+<p>Anyhow, while you could, with enough persistence, probably hack out something that works, let me save you some frustration and give you a nice, general approach to this sort of problem. Enter <em>finite state machines</em>…</p>
+<h3 id="finite-state-machines-fsms">Finite State Machines (FSMs)</h3>
+<p><a href="http://en.wikipedia.org/wiki/Finite-state_machine">Finite state machines</a> and <a href="http://en.wikipedia.org/wiki/State_diagram">state diagrams</a> are invaluable tools in computer science; you’ll be seeing a lot more of them as your CS education continues. The idea is pretty simple, and will hopefully be an intuitive one for you. Let’s think about our rules for reading C++ syntax. We had some tricky situations above. If we see <code>/</code> followed by another <code>/</code>, then we enter a comment… <em>unless</em> we were inside of a string. And similarly, if we see a <code>&quot;</code> then we’ll enter a string, <em>unless</em> we were reading a string already, or if we were reading a comment. Okay… so we cannot behave uniformly based only the character that we are currently reading. We have to keep track of some kind of context, and alter our behavior depending on what context we are currently in. If say the quote was at the beginning of the line, then we know we’re reading a string literal, so we enter a special “I’m reading a string mode” and start ignoring things like <code>//</code> that would have mattered otherwise. We have similar <em>modes</em> for reading other kinds of things. In pictures, here’s kind of what is going on:</p>
+<div class="figure">
+<img src="minifsm.svg" alt="Fig. 1: Toy State Diagram" />
+<p class="caption">Fig. 1: Toy State Diagram</p>
+</div>
+<p>The above diagram ignores a lot of subtleties like escape sequences, but hopefully you get the idea. You start out in “regular mode” and read one character at a time. Just by examining that one character, you move around from mode to mode, which changes how you interpret subsequent characters. Note that once you enter comment mode, nothing breaks you out, except for a new line.</p>
+<p>At this point you might be thinking “nice picture, but good luck programming it!”. As it turns out, it’s rather easy to code finite state machines. There are even programs that automate the making of such programs!<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Here’s one idea for how to proceed. Formally, you can think a finite state machine like the one above as a mathematical function from <span class="math inline"><em>s</em><em>t</em><em>a</em><em>t</em><em>e</em><em>s</em> × <em>c</em><em>h</em><em>a</em><em>r</em><em>a</em><em>c</em><em>t</em><em>e</em><em>r</em><em>s</em> → <em>s</em><em>t</em><em>a</em><em>t</em><em>e</em><em>s</em></span>. To represent the states, we can just associate each one with an integer:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="dt">const</span> <span class="dt">int</span> state1 = <span class="dv">1</span>;
+<span class="dt">const</span> <span class="dt">int</span> state2 = <span class="dv">2</span>;
+...</code></pre></td></tr></table></div>
+<p>Then, not doing anything fancy, we could just break down the domain (<span class="math inline"><em>s</em><em>t</em><em>a</em><em>t</em><em>e</em><em>s</em> × <em>c</em><em>h</em><em>a</em><em>r</em><em>a</em><em>c</em><em>t</em><em>e</em><em>r</em><em>s</em></span>) and explicitly program the input / output behavior we want. Take a look:</p>
+<div class="sourceCode"><table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="kw">switch</span> (state) {
+    <span class="kw">case</span> state1:
+        <span class="kw">if</span> (inputchar == <span class="st">&#39;/&#39;</span>)
+            <span class="co">// do stuff; update state</span>
+        <span class="kw">else</span> <span class="kw">if</span> (inputchar == <span class="st">&#39;&quot;&#39;</span>)
+            <span class="co">// do something else; update state</span>
+            ...
+    <span class="kw">case</span> state2:
+        <span class="kw">if</span> (inputchar == <span class="st">&#39;/&#39;</span>)
+            <span class="co">// do stuff; update state</span>
+        <span class="kw">else</span> <span class="kw">if</span> (inputchar == <span class="st">&#39;&quot;&#39;</span>)
+            <span class="co">// do something else; update state</span>
+            ...
+    <span class="co">// continue the same way, taking care of</span>
+    <span class="co">// each possible state individually.</span>
+    ...
+}</code></pre></td></tr></table></div>
+<!---}}-->
+<!---{{ part I-->
+<h2 id="part-i-details">Part I Details</h2>
+<p>Alright, so here’s what you have to do for part one. Just program a decent FSM for recognizing C++ syntax. To make things a little easier at the beginning, we’ll make a few simplifying assumptions about the kinds of input that we’ll be dealing with.</p>
+<h3 id="simplifying-assumptions">Simplifying Assumptions</h3>
+<ul>
+<li>The code has no multi-line comments</li>
+<li>The code has no multi-line string literals (no line-continuation).</li>
+<li>Numeric constants are limited to positive integers</li>
+<li>Only write integer constants in base 10 (no hex, e.g. <code>0xff</code>)</li>
+<li>We won’t recognize char constants</li>
+</ul>
+<p>For this restricted model, the state diagram would look something like the following.</p>
+<div class="figure">
+<img src="fsm.svg" alt="Fig. 2: State Diagram for (limited) C++ Syntax" />
+<p class="caption">Fig. 2: State Diagram for (limited) C++ Syntax</p>
+</div>
+<p>Note that we have defined the transitions in terms of <em>character classes</em> like <code>:num:</code>. I have already programmed these constants into the header file, both as strings, and as sets. A few of these might need some explanation.</p>
+<ul>
+<li><code>:ident_st:</code> is the set of characters that could be the start of an <a href="http://msdn.microsoft.com/en-us/library/565w213d.aspx">identifier</a>. In C++, this consists of underscore and all letters.</li>
+<li><code>:ident:</code> is the same as above, but also includes numbers.</li>
+<li><code>:id_delim:</code> is the set of characters that can delimit identifiers, but that don’t start string constants, or comments, e.g. whitespace.</li>
+<li><code>:escseq:</code> is a list of characters that are valid escape sequences, for example, the <code>n</code> in <code>\n</code>.</li>
+</ul>
+<h3 id="your-job">Your Job</h3>
+<p>For now, you just have to write the following function:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> updateState(<span class="dt">int</span>&amp; state, <span class="dt">char</span> c);</code></pre></div>
+<p>This function is supposed to implement the above finite state machine. The state is passed <em>by reference</em>, and is meant to be updated by the function. The <code>char c</code> is of course the input character that has been read, and the return value should be <em>the old value of the state</em>. I’ve given you some test code inside of the <code>main()</code> function, but you should run your own tests as well (see the code for details). My test code just reads strings from standard input and prints out the list of states as you go. Since there are no multi-line comments or strings, we reset to the start state after every line.</p>
+<p>So that we’re all on the same page, and so that I have some hope of grading this before the semester ends, I have included the list of states in the header file:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">enum</span> states {
+    start,   <span class="co">// the start state</span>
+    scanid,  <span class="co">// we are in the middle of scanning an identifier</span>
+    comment, <span class="co">// we are scanning a comment</span>
+    strlit,  <span class="co">// we&#39;re scanning a string literal (double quotes: &quot;&quot;)</span>
+    readfs,  <span class="co">// just read forward slash while scanning a numeric constant</span>
+             <span class="co">// or identifier, or from the start state.</span>
+    readesc, <span class="co">// just read backslash from strlit state (start of escape seq)</span>
+    scannum, <span class="co">// in the middle of scanning a numeric constant</span>
+    error    <span class="co">// error state; read a messed up numeric or escape sequence.</span>
+};</code></pre></div>
+<p><strong>Important: Use the above list of states.</strong> Do not invent your own states. You can read more about the <code>enum</code> in the comments of the header file, or your book, or the Internet.</p>
+<p>Here is some example input / output of the main program.</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">$ echo &quot;int x; // holds stuff&quot; | ./main
+ int x; // holds stuff
+0111010042222222222222
+
+$ echo &#39;cout &lt;&lt; &quot;some string&quot;;&#39; | ./main
+ cout &lt;&lt; &quot;some string&quot;;
+01111000033333333333300
+
+$ echo &#39;cout &lt;&lt; &quot;\&quot;escape\&quot; chars are fun&quot;;&#39; | ./main
+ cout &lt;&lt; &quot;\&quot;escape\&quot; chars are fun&quot;;
+011110000353333333533333333333333300</code></pre></div>
+<p>You can see the state resulting from reading each character right below the corresponding character.</p>
+<h3 id="testing">Testing</h3>
+<p>When you think your program is working, run <code>sanitycheck.sh</code>, and it will let you know whether or not you are right. It will test your code on input of <code>testinput.cpp</code>, which covers most of the common cases.</p>
+<!---}}-->
+<!---{{ Submission proc-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Turn your assignment in <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103S16/upload.html">here</a>. A few <strong>important notes:</strong></p>
+<ul>
+<li><em>Save the receipt.</em> You will need this to get your homework score back later from <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103S16/download.html">the hw download page</a>.</li>
+<li><em>Don’t change the filename.</em> Just edit and submit the file from the repository (<code>fsm.cpp</code>). If you turn a file with a different name, it will not be graded.</li>
+<li><em>Respect the deadline.</em> Turning in homework past the deadline will be noticed, and may lead to a zero.</li>
+</ul>
+<!---}}-->
+<!---{{ Links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>See <a href="http://en.wikipedia.org/wiki/Flex_lexical_analyser">flex</a> and <a href="http://en.wikipedia.org/wiki/Yacc">yacc</a> for example.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+</body>
+</html>
